@@ -21,9 +21,7 @@ jobs:
       - name: Setup Android SDK (platform 34 + build-tools 34.0.0)
         uses: android-actions/setup-android@v3
         with:
-          packages: |
-            platforms;android-34
-            build-tools;34.0.0
+          packages: "platforms;android-34 build-tools;34.0.0"
           accept-android-sdk-licenses: true
 
       - name: Generate debug keystore (CI container default path)
