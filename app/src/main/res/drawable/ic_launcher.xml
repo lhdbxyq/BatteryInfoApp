@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- background -->
+    <path android:fillColor="#6200EE" android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
+    <!-- battery body -->
+    <path android:fillColor="#FFFFFF" android:pathData="M28,40 L82,40 L82,68 L28,68 Z" />
+    <!-- battery nub -->
+    <path android:fillColor="#FFFFFF" android:pathData="M82,48 L90,48 L90,60 L82,60 Z" />
+    <!-- charge fill -->
+    <path android:fillColor="#6200EE" android:pathData="M34,46 L72,46 L72,62 L34,62 Z" />
+</vector>
