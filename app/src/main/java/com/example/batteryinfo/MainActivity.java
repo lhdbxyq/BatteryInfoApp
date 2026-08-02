@@ -39,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout container;
     private LinearLayout batterySection;
 
+    // BATTERY_PROPERTY_CHARGE_FULL is a @hide constant (API 30+), not present in the
+    // public android.jar, so we resolve it via reflection at runtime. Fallback value
+    // is the well-known framework constant id for "full charge capacity".
+    private static final int BATTERY_PROPERTY_CHARGE_FULL = resolveChargeFullProperty();
+
+    private static int resolveChargeFullProperty() {
+        try {
+            return BatteryManager.class.getField("BATTERY_PROPERTY_CHARGE_FULL").getInt(null);
+        } catch (Exception e) {
+            return 7; // fallback framework id for CHARGE_FULL
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         long chargeFullMicro = -1;
         BatteryManager bm = (BatteryManager) getSystemService(BATTERY_SERVICE);
         if (bm != null) {
-            chargeFullMicro = bm.getLongProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_FULL);
+            chargeFullMicro = bm.getLongProperty(BATTERY_PROPERTY_CHARGE_FULL);
         }
 
         addRow(batterySection, "当前电量", pct >= 0 ? pct + " %" : "未知");
@@ -305,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         List<Pair<String, String>> list = new ArrayList<>();
         list.add(p("内部存储", formatStorage(Environment.getDataDirectory())));
         try {
-            File external = Environment.getExternalFilesDir(null);
+            File external = getExternalFilesDir(null);
             if (external != null) {
                 list.add(p("外部存储", formatStorage(external)));
             } else {
