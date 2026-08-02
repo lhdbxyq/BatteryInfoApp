@@ -18,14 +18,14 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK (api 34, build-tools 34.0.0)
+      - name: Setup Android SDK (platform 34 + build-tools 34.0.0)
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          build-tools-version: 34.0.0
-
-      - name: Accept SDK licenses
-        run: yes | sdkmanager --licenses >/dev/null || true
+          sdk-version: 34
+          packages: |
+            platforms;android-34
+            build-tools;34.0.0
+          accept-android-sdk-licenses: true
 
       - name: Generate debug keystore (CI container default path)
         run: |
