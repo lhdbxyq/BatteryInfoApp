@@ -36,11 +36,13 @@ jobs:
               -dname "CN=Android Debug,O=Android,C=US"
           fi
 
-      - name: Generate Gradle wrapper
-        run: gradle wrapper --gradle-version 8.2 --distribution-type bin
+      - name: Setup Gradle 8.2 (auto-install + cache)
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.2
 
       - name: Build APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
